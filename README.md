@@ -33,3 +33,6 @@ http://localhost:8000/api/fibonacci-calc
 POST запрос с json
 
 { "x": 3, "y": 40 }
+
+http
+curl -X POST -H "Content-Type: application/json" -d '{"x": 3, "y": 7}' http://localhost:8000/api/fibonacci-calc
