@@ -12,15 +12,20 @@
 ## Установка и подготовка к запуску:
 1. Создать локальную папку с любым названием
 2. Инициализировать в ней пустой репозиторий:
-```git init``` 
-4. Создать клон удаленного репозитория: 
-```git clone https://github.com/elli56/go-fibonacci-api.git```
 
-5. Зайти в папку с приложением: 
-```cd go-fibonacci-api/```
+        git init 
 
-6. Экспортировать PATH для работы Go 
-```export PATH=$PATH:/usr/local/go/bin```
+3. Создать клон удаленного репозитория: 
+
+        git clone https://github.com/elli56/go-fibonacci-api.git
+
+4. Зайти в папку с приложением: 
+
+        cd go-fibonacci-api/
+
+6. Экспортировать PATH для работы Go: 
+
+        export PATH=$PATH:/usr/local/go/bin
 
 ## Запуск
 
@@ -30,11 +35,13 @@
 Здесь реализованы GRPC сервер для обработки запроса и клиент для отправки и получения.
 Сервер и клиент можно запустить локально в двух терминалах. 
 
-Для запуска GRPC сервера выполните команду:
-```go run cmd/grpcserver/main.go```
++ Для запуска GRPC сервера выполните команду:
 
-Затем в этой же папке откройте новое окно терминала и запустите клиент:
-```go run cmd/grpcclient/main.go -p 8080 -x 1 -y 10```
+        go run cmd/grpcserver/main.go
+
++ Затем в этой же папке откройте новое окно терминала и запустите клиент:
+
+        go run cmd/grpcclient/main.go -p 8080 -x 1 -y 10
 
 Вместе с командой с помощью флагов передаются аргументы для диапазона получения слайса Фибоначчи:
 -p порт на котором работает сервер (по умолчанию :8080)
@@ -54,18 +61,18 @@
 
 Включение HTTP сервера производится командой:
 
-```go run cmd/httpserver/main.go```
+        go run cmd/httpserver/main.go
 
 Сервер будет доступен по адресу:
 
-```http://localhost:8000/api/fibonacci-calc```
+        http://localhost:8000/api/fibonacci-calc
 
 
 Передача аргументов
 
 Отправить запрос можно стандартной утилитой Linux Curl:
 
-```curl -X POST -H "Content-Type: application/json" -d '{"x": 3, "y": 7}' http://localhost:8000/api/fibonacci-calc```
+        curl -X POST -H "Content-Type: application/json" -d '{"x": 3, "y": 7}' http://localhost:8000/api/fibonacci-calc
 
 Или с помощью Postman:
 
