@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+
+package proto;
+
+option go_package = "/home/elli_56/projects/golang/grpc/go-fibonacci-api;proto";
+
+service FibonacciSlicer {
+  rpc FibonacciSlice(FiboRequest) returns (FiboResponse) {}
+}
+
+message FiboRequest {
+  int64 x = 1;
+  int64 y = 2;
+}
+
+message FiboResponse {
+  map<int64,int64> result = 1;
+}
+
+
+
