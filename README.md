@@ -13,20 +13,33 @@ Go-fibonacci-api использует **Redis** в качестве кэша, г
 Скачать исходный код и протестировать можно по инструкции ниже.
 
 ## Установка и подготовка к запуску:
-1. Создать локальную папку с любым названием
-2. Инициализировать в ней пустой репозиторий:
+1.Убедиться что установлен Go
+
+2.скачать и установить Redis для платформ кроме Linux:
+
+        https://redis.io/download
+        
+Если у вас Linux то:
+
+        curl https://packages.redis.io/gpg | sudo apt-key add -
+        echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+        sudo apt-get update
+        sudo apt-get -y install redis
+        
+3. Создать локальную папку с любым названием
+4. Инициализировать в ней пустой репозиторий:
 
         git init 
 
-3. Создать клон удаленного репозитория: 
+5. Создать клон удаленного репозитория: 
 
         git clone https://github.com/elli56/go-fibonacci-api.git
 
-4. Зайти в папку с приложением: 
+6. Зайти в папку с приложением: 
 
         cd go-fibonacci-api/
 
-6. Экспортировать PATH для работы Go: 
+7. Экспортировать PATH для работы Go: 
 
         export PATH=$PATH:/usr/local/go/bin
 
@@ -89,15 +102,4 @@ Go-fibonacci-api использует **Redis** в качестве кэша, г
   "y": 40 
 }
 ```
-
-скачать Redis можно по ссылке:
-
-        https://redis.io/download
-        
-Если у вас Linux то:
-
-        curl https://packages.redis.io/gpg | sudo apt-key add -
-        echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-        sudo apt-get update
-        sudo apt-get -y install redis
 
