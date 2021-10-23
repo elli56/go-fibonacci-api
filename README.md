@@ -5,25 +5,41 @@
 Сервис принимает в качестве запроса диапазон значений, состоящий из двух аргументов '**x**' и '**y**'. 
 В качестве ответа возвращает все числа последовательности Фибоначчи с порядковыми номерами в диапазоне от '**x**' до '**y**'.
 
+### Использование Redis
+Go-fibonacci-api использует **Redis** в качестве кэша, где сохраняет все найденные значения любой последовательности.Это позволяет не пересчитывать по многу раз одни и те же значения что приводит к увеличению скорости запросов.
+
 В сервисе реализованы HTTP и GRPC протоколы.
 
 Скачать исходный код и протестировать можно по инструкции ниже.
 
 ## Установка и подготовка к запуску:
-1. Создать локальную папку с любым названием
-2. Инициализировать в ней пустой репозиторий:
+1. Убедиться что установлен Go
+
+2. Cкачать и установить Redis для платформ кроме Linux:
+
+        https://redis.io/download
+        
+Если у вас Linux то:
+
+        curl https://packages.redis.io/gpg | sudo apt-key add -
+        echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+        sudo apt-get update
+        sudo apt-get -y install redis
+        
+3. Создать локальную папку с любым названием
+4. Инициализировать в ней пустой репозиторий:
 
         git init 
 
-3. Создать клон удаленного репозитория: 
+5. Создать клон удаленного репозитория: 
 
         git clone https://github.com/elli56/go-fibonacci-api.git
 
-4. Зайти в папку с приложением: 
+6. Зайти в папку с приложением: 
 
         cd go-fibonacci-api/
 
-6. Экспортировать PATH для работы Go: 
+7. Экспортировать PATH для работы Go: 
 
         export PATH=$PATH:/usr/local/go/bin
 
@@ -86,15 +102,4 @@
   "y": 40 
 }
 ```
-
-скачать Redis можно по ссылке:
-
-        https://redis.io/download
-        
-Если у вас Linux то:
-
-        curl https://packages.redis.io/gpg | sudo apt-key add -
-        echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-        sudo apt-get update
-        sudo apt-get -y install redis
 
