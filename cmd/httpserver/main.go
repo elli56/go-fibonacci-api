@@ -5,6 +5,7 @@ import (
 
 	"github.com/elli56/fibo-api/pkg/handler"
 	"github.com/elli56/fibo-api/pkg/httpserver"
+	"github.com/elli56/fibo-api/pkg/repository"
 	"github.com/elli56/fibo-api/pkg/service"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -22,10 +23,15 @@ func main() {
 	// if err := godotenv.Load(); err != nil {
 	// 	logrus.Fatalf("error loading env variables: %s", err.Error())
 	// }
-
-	// repos := repository.NewRepository(db)
-	// services := service.NewService(repos)
-	services := service.NewService()
+	// time expiration (in hour)
+	redisServer := repository.NewRepository(
+		viper.GetString("redis.host"),
+		viper.GetString("redis.port"),
+		viper.GetString("redis.password"),
+		viper.GetInt("redis.db"),
+		1,
+	)
+	services := service.NewService(redisServer)
 	handlers := handler.NewHandler(services)
 
 	srv := new(httpserver.Server)

@@ -3,13 +3,17 @@ package service
 import (
 	"errors"
 	"math"
+
+	"github.com/elli56/fibo-api/pkg/repository"
+	"github.com/sirupsen/logrus"
 )
 
 type CalculateService struct {
+	redisDb repository.PostCache
 }
 
-func NewCalculateService() *CalculateService {
-	return &CalculateService{}
+func NewCalculateService(redisdb repository.PostCache) *CalculateService {
+	return &CalculateService{redisDb: redisdb}
 }
 
 func (s *CalculateService) FiboSlice(x, y int64) (map[int64]int64, error) {
@@ -18,9 +22,20 @@ func (s *CalculateService) FiboSlice(x, y int64) (map[int64]int64, error) {
 		return m, errors.New("incorrect diapasone. 'x' should be less than 'y'")
 	}
 	for x < y {
-		n := s.fibonacciFindByNumber(float64(x))
-		m[x] = int64(n)
-		x++
+		// проверяем есть ли значение в Redis
+		redisValue, err := s.redisDb.Get(x)
+		// если не нашли то считаем и пишем в map и в Redis
+		if err != nil {
+			logrus.Error(err)
+			n := s.fibonacciFindByNumber(float64(x))
+			m[x] = int64(n)
+			s.redisDb.Set(x, int64(n))
+			x++
+		} else {
+			// если нашли то пишем в map
+			m[x] = redisValue
+			x++
+		}
 	}
 	return m, nil
 }

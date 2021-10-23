@@ -6,6 +6,7 @@ import (
 
 	"github.com/elli56/fibo-api/pkg/grpcserver"
 	"github.com/elli56/fibo-api/pkg/proto"
+	"github.com/elli56/fibo-api/pkg/repository"
 	"github.com/elli56/fibo-api/pkg/service"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -29,8 +30,15 @@ func main() {
 	// create
 	server := grpc.NewServer()
 
+	redisServer := repository.NewRepository(
+		viper.GetString("redis.host"),
+		viper.GetString("redis.port"),
+		viper.GetString("redis.password"),
+		viper.GetInt("redis.db"),
+		1,
+	)
 	// initialise Services
-	services := service.NewService()
+	services := service.NewService(redisServer)
 	// Объявим структуру которая реализует интерфейс нашего сервера
 	GRPCServers := grpcserver.NewGRPCServer(services)
 	//  registration
